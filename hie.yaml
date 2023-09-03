@@ -1,0 +1,14 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "comonadic-spreadsheet:lib"
+
+    - path: "./app/Main.hs"
+      component: "comonadic-spreadsheet:exe:comonadic-spreadsheet-exe"
+
+    - path: "./app/Paths_comonadic-spreadsheet.hs"
+      component: "comonadic-spreadsheet:exe:comonadic-spreadsheet-exe"
+
+    - path: "./test"
+      component: "comonadic-spreadsheet:test:comonadic-spreadsheet-test"
+
