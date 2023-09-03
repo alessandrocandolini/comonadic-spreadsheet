@@ -1,4 +1,8 @@
+[![CI](https://github.com/alessandrocandolini/comonadic-spreadsheet/actions/workflows/ci.yml/badge.svg)](https://github.com/alessandrocandolini/comonadic-spreadsheet/actions/workflows/ci.yml) [![codecov](https://codecov.io/gh/alessandrocandolini/comonadic-spreadsheet/graph/badge.svg?token=xoqo6eoKYj)](https://codecov.io/gh/alessandrocandolini/comonadic-spreadsheet)
+
 # comonadic-spreadsheet
+
+Toy haskell implementation of a spreadsheet-like engine using comonads 
 
 ## How to build and run locally
 
