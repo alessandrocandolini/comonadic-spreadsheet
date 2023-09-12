@@ -38,7 +38,7 @@ spec = describe "Simple test" $ do
         sma (WindowSize 3) [1,2,3,4,5,6,7,8,9,10] `shouldBe` (Just <$> [2,3,4,5,6,7,8,9] ) <> [Nothing, Nothing]
 
      it "allNumbers" $
-        takeN 10 allNumbers `shouldBe` [0,1,2,3,4,5,6,7,8,9]
+        takeN 10 naturals `shouldBe` [1,2,3,4,5,6,7,8,9, 10]
 
      prop "property-based unit test" $
         \l -> reverse ( reverse l ) == ( l::[Int])

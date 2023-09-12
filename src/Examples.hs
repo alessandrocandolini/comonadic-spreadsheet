@@ -66,18 +66,15 @@ instance Comonad Stream where
    extract (Stream a _) = a
    duplicate s'@(Stream _ as) = Stream s' (duplicate as)
 
-first :: Stream a -> a
-first (Stream a _) = a
-
-intStream :: Int -> Stream Int
-intStream n = Stream n (intStream (n + 1))
-
-allNumbers :: Stream Int
-allNumbers = intStream 0
+naturals:: Stream Int
+naturals = iterate (+1) 1
 
 takeN :: Int -> Stream a -> [a]
 takeN 0 _ = []
 takeN n (Stream a as) = a : takeN (n-1) as
+
+constS :: a -> Stream a
+constS s = iterate (const s) s
 
 data Sheet1 a = Sheet1 (Stream a) a (Stream a) deriving (Eq,Show,Functor)
 
@@ -85,10 +82,10 @@ focus :: Sheet1 a -> a
 focus (Sheet1 _ a _ ) = a
 
 moveL :: Sheet1 a -> Sheet1 a
-moveL (Sheet1 (Stream a as) focus s) = Sheet1 as a (Stream focus s)
+moveL (Sheet1 (Stream a as) f s) = Sheet1 as a (Stream f s)
 
 moveR :: Sheet1 a -> Sheet1 a
-moveR (Sheet1 s focus (Stream a as)) = Sheet1 (Stream focus s) a as
+moveR (Sheet1 s f (Stream a as)) = Sheet1 (Stream f s) a as
 
 allLeft :: Sheet1 a -> Stream (Sheet1 a)
 allLeft = iterate moveL
@@ -96,10 +93,21 @@ allLeft = iterate moveL
 allRight:: Sheet1 a -> Stream (Sheet1 a)
 allRight = iterate moveR
 
-
 instance Comonad Sheet1 where
   extract = focus
   duplicate s = Sheet1 (allLeft s) s (allRight s)
+
+naturalsSheet1 :: Sheet1 Int
+naturalsSheet1 = Sheet1 (constS 0) 0 naturals
+
+sheet :: Num a => Sheet1 (Sheet1 a -> a)
+sheet = undefined
+
+evaluate :: Sheet1 (Sheet1 a -> a) -> Sheet1 a
+evaluate = undefined
+
+
+
 
 
 
