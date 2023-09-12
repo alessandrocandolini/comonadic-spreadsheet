@@ -24,5 +24,21 @@ spec = describe "Simple test" $ do
      it "tails of a nonempty list of one element (overloaded syntax)" $
         tails [1] `shouldBe` [[1]]
 
+     it "smaLocal simple list" $
+        smaLocal (WindowSize 4) [1,2,3,4,5,6,7,8,9,10] `shouldBe` Just 2.5
+
+     it "smaLocal insufficient list" $
+        smaLocal (WindowSize 4) [1,2,3] `shouldBe` Nothing
+
+
+     it "sma simple list size 1" $
+        sma (WindowSize 1) [1,2,3,4,5,6,7,8,9,10] `shouldBe` (Just <$> [1,2,3,4,5,6,7,8,9,10])
+
+     it "sma simple list" $
+        sma (WindowSize 3) [1,2,3,4,5,6,7,8,9,10] `shouldBe` (Just <$> [2,3,4,5,6,7,8,9] ) <> [Nothing, Nothing]
+
+     it "allNumbers" $
+        takeN 10 allNumbers `shouldBe` [0,1,2,3,4,5,6,7,8,9]
+
      prop "property-based unit test" $
         \l -> reverse ( reverse l ) == ( l::[Int])
