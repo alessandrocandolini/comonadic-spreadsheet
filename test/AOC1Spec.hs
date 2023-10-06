@@ -20,8 +20,17 @@ spec :: Spec
 spec = describe "AOC2021 day1 https://adventofcode.com/2021/day/1" $ do
 
      it "number of increases on a small example list" $
-       increases [199, 200, 208, 210, 200, 207,240,269,260,273]  `shouldBe` 7
+       increases [199, 200, 208, 210, 200, 207,240,269,260,263]  `shouldBe` 7
+
+     it "sums in window on a small example list" $
+       sumN 3 [199, 200, 208, 210, 200, 207,240,269,260,263]  `shouldBe` Just [607, 618, 618, 617, 647, 716, 769, 792]
+
+     it "number of increases in window on a small example list" $
+       increasesInWindow 3 [199, 200, 208, 210, 200, 207,240,269,260,263]  `shouldBe` 5
 
      before (readNumbers "resources/aoc1.txt") $ do
-      it "number of increases reading from a file" $ \testInputs -> do
-        (increases testInputs) `shouldBe` 1616
+       it "number of increases reading from a file" $ \testInputs -> do
+         (increases testInputs) `shouldBe` 1616
+
+       it "number of increases reading from a file" $ \testInputs -> do
+         (increasesInWindow  3 testInputs) `shouldBe` 1645
