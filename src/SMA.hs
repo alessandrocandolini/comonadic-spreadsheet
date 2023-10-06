@@ -13,8 +13,14 @@ newtype Average a = Average (a, Int)
   deriving (Eq, Show)
   deriving (Semigroup, Monoid) via (Sum a, Sum Int)
 
+total :: Average a -> a
+total (Average (a,_)) = a
+
+size :: Average a -> Int
+size (Average (_, a)) = a
+
 runAverage :: (Fractional a) => Average a -> a
-runAverage (Average (a, b)) = a / fromIntegral b
+runAverage = (/) <$> total <*> fromIntegral . size
 
 calculateAverage :: (Fractional a) => NonEmpty a -> Average a
 calculateAverage = foldMap (\a -> Average (a, 1))
